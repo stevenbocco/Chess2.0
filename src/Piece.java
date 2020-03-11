@@ -2,11 +2,11 @@ import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
-public class ChessPiece extends Component {
+public class Piece extends Component {
 	BufferedImage darkTile = null;
 	BufferedImage LightTile = null;
 	
-	public ChessPiece () {
+	public Piece () {
 		super();
 
 		darkTile = TextureLoader.getDarkTile();
@@ -15,9 +15,6 @@ public class ChessPiece extends Component {
 	
 	@Override
 	public void paint(Graphics g) {
-		System.out.println("Rendering king");
 		
-		g.drawImage(darkTile, 0, 0, null);
-		g.drawImage(LightTile, 100, 0, null);
 	}
 }

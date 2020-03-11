@@ -1,24 +1,33 @@
 import java.awt.Canvas;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class GameBoard extends Canvas implements MouseListener{
+public class GameBoard extends Canvas implements MouseListener {
 	
-	ChessPiece King;
+	private Tile[][] board;
 	
 	public GameBoard(int CANVAS_WIDTH, int CANVAS_HEIGHT) {
-		this.addMouseListener(this);
 		setBackground (Color.BLACK);  
-        setSize(CANVAS_WIDTH, CANVAS_HEIGHT);
-        King = new ChessPiece();
+		setPreferredSize(new Dimension(CANVAS_WIDTH, CANVAS_HEIGHT));
+        
+        this.addMouseListener(this);
+        this.board = new Tile[8][8];
+        
+        initializeBoard();
 	}
 	
 	@Override
 	public void paint(Graphics g) {
 		System.out.println("paint function");
-		King.paint(g);
+		for(int i = 0; i < 8; i++) {
+			for(int j = 0; j < 8; j++) {
+				board[i][j].paint(g);
+			}
+		}
+		
 	}
 	
 	@Override
@@ -49,5 +58,22 @@ public class GameBoard extends Canvas implements MouseListener{
 
 	@Override
 	public void mouseReleased(MouseEvent e) {}
-
+	
+	private void initializeBoard() {
+		for(int i = 0; i < 8; i++) {
+			for(int j = 0; j < 8; j++) {
+				int x = i * 100;
+				int y = j * 100;
+				
+				board[i][j] = new Tile(isWhite(i,j), x, y);
+			}
+		}
+	}
+	
+	private boolean isWhite(int i, int j) {
+		if((i + j) % 2 == 0) {
+			return true;
+		}
+		return false;
+	}
 }
