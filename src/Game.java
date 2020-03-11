@@ -10,6 +10,8 @@ public class Game extends JFrame {
 	
 	public Game() {
 		super("Chess Game");
+		TextureLoader.loadTextures();
+		
 		
 		gameboard = new GameBoard(WINDOW_WIDTH, WINDOW_HEIGHT);
 		
