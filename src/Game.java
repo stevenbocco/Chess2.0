@@ -15,12 +15,11 @@ public class Game extends JFrame {
 		
 		gameboard = new GameBoard(WINDOW_WIDTH, WINDOW_HEIGHT);
 		
-		this.add(gameboard);
-		this.setLayout(null);
-		this.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+		this.getContentPane().add(gameboard);
+		this.pack();
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
 		
-		gameboard.repaint();
+		
 	}
 }
