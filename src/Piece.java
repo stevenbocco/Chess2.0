@@ -2,19 +2,25 @@ import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
-public class Piece extends Component {
-	BufferedImage darkTile = null;
-	BufferedImage LightTile = null;
+public abstract class Piece extends Component {
 	
-	public Piece () {
+	protected BufferedImage pieceImage = null;
+	private ChessColor color;
+	private int x,y;
+	
+	
+	public Piece (ChessColor color, int x, int y) {
 		super();
-
-		darkTile = TextureLoader.getDarkTile();
-		LightTile = TextureLoader.getLightTile();
+		this.x = x;
+		this.y = y;
+		this.color = color;
 	}
-	
+
 	@Override
 	public void paint(Graphics g) {
-		
+		g.drawImage(pieceImage, x, y, null);
 	}
+	
+	public abstract void movement();
+	
 }
