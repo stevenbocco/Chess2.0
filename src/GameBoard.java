@@ -6,10 +6,10 @@ import java.awt.event.MouseListener;
 
 public class GameBoard extends Canvas implements MouseListener{
 	
-	public GameBoard() {
+	public GameBoard(int CANVAS_WIDTH, int CANVAS_HEIGHT) {
 		this.addMouseListener(this);
 		setBackground (Color.BLACK);  
-        setSize(1280, 900);
+        setSize(CANVAS_WIDTH, CANVAS_HEIGHT);
 	}
 	
 	@Override
