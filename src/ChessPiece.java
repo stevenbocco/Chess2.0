@@ -6,16 +6,16 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public abstract class ChessPiece extends Component {
-	BufferedImage img = null;
-	BufferedImage img2 = null;
+public class ChessPiece extends Component {
+	BufferedImage tile1 = null;
+	BufferedImage tile2 = null;
 	
 	public ChessPiece () {
 		super();
 
 		try {
-		    img = ImageIO.read(new File("resources/meta.JPG")); 
-		    img2 = ImageIO.read(new File("resources/peice.png")); 
+		    tile1 = ImageIO.read(new File("resources/ChessTileDark.png")); 
+		    tile2 = ImageIO.read(new File("resources/ChessTileLight.png")); 
 		} catch (IOException e) {
 		    e.printStackTrace();
 		}
@@ -26,7 +26,7 @@ public abstract class ChessPiece extends Component {
 		System.out.println("Rendering king");
 		
 		
-		g.drawImage(img, 0, 0, null);
-		g.drawImage(img2, 20, 20, null);
+		g.drawImage(tile1, 0, 0, null);
+		g.drawImage(tile2, 100, 0, null);
 	}
 }

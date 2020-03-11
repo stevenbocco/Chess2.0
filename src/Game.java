@@ -2,8 +2,8 @@ import javax.swing.JFrame;
 
 public class Game extends JFrame {
 	
-	private final int WINDOW_WIDTH = 1290;
-	private final int WINDOW_HEIGHT = 900;
+	private final int WINDOW_WIDTH = 800;
+	private final int WINDOW_HEIGHT = 800;
 	
 	private GameBoard gameboard;
 	

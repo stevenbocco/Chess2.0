@@ -6,15 +6,19 @@ import java.awt.event.MouseListener;
 
 public class GameBoard extends Canvas implements MouseListener{
 	
+	ChessPiece King;
+	
 	public GameBoard(int CANVAS_WIDTH, int CANVAS_HEIGHT) {
 		this.addMouseListener(this);
 		setBackground (Color.BLACK);  
         setSize(CANVAS_WIDTH, CANVAS_HEIGHT);
+        King = new ChessPiece();
 	}
 	
 	@Override
 	public void paint(Graphics g) {
 		System.out.println("paint function");
+		King.paint(g);
 	}
 	
 	@Override
