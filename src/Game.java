@@ -37,7 +37,7 @@ public class Game extends JFrame {
 			if(validTile(tile)) {
 				this.selectedTile = tile;
 				this.selectedTile.getPiece().setValidMoves();
-				System.out.println("you selected a tile");				
+				System.out.println("you selected " + this.selectedTile.getTileCode());				
 			}
 			else {
 				System.out.println("you selected an invalid tile");

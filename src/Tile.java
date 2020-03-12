@@ -8,12 +8,14 @@ public class Tile extends Component {
 	private Piece piece = null;
 	private BufferedImage tileImage = null;
 	private int x,y;
+	private String tileCode;
 	
 	public Tile(Boolean isWhite, int x, int y) {
 		super();
 		this.tileImage = isWhite ? TextureLoader.getLightTile() : TextureLoader.getDarkTile();
 		this.x = x;
 		this.y = y;
+		this.tileCode = ChessTileCode.getChessTileCode(x/100, y/100);
 	}
 	
 	@Override
@@ -50,5 +52,9 @@ public class Tile extends Component {
 	
 	public Point getBoardPosition() {
 		return new Point(x/100, y/100);
+	}
+	
+	public String getTileCode() {
+		return this.tileCode;
 	}
 }

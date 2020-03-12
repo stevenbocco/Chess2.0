@@ -29,7 +29,6 @@ public class GameBoard extends Canvas implements MouseListener {
 				board[i][j].paint(g);
 			}
 		}
-		
 	}
 	
 	@Override
@@ -43,10 +42,7 @@ public class GameBoard extends Canvas implements MouseListener {
 		int xPos = e.getX();
 		int yPos = e.getY();
 		
-		
-		
 		Tile tile = findTile(xPos, yPos);
-		
 		game.handleClick(tile);
 	}
 
@@ -83,9 +79,6 @@ public class GameBoard extends Canvas implements MouseListener {
 	private Tile findTile(int xPos, int yPos) {
 		int i = (xPos/100);
 		int j = (yPos/100);
-		
-		System.out.println(i);
-		System.out.println(j);
 		
 		return board[i][j];
 	}
