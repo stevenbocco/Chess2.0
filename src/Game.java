@@ -1,3 +1,4 @@
+import java.awt.Point;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
@@ -35,6 +36,7 @@ public class Game extends JFrame {
 		if(this.selectedTile == null && tile.hasPiece()) {
 			if(validTile(tile)) {
 				this.selectedTile = tile;
+				this.selectedTile.getPiece().setValidMoves();
 				System.out.println("you selected a tile");				
 			}
 			else {
@@ -47,16 +49,19 @@ public class Game extends JFrame {
 		}
 		else if(this.selectedTile != null && !tile.equals(selectedTile)) {
 			this.targetTile = tile;
-			Piece piece = this.selectedTile.removePieceFromTile();
 			
-			
-			piece.updatePosition(this.targetTile.getPosition().x / 100, this.targetTile.getPosition().y / 100);
-			this.targetTile.addPieceToTile(piece);
-			gameboard.repaint();
-			this.selectedTile = null;
-			this.targetTile = null;
-			
-			currentPlayer = currentPlayer == ChessColor.WHITE ? ChessColor.BLACK : ChessColor.WHITE;
+			if(isValidMove(this.selectedTile.getPiece().getValidMoves(), this.targetTile.getBoardPosition())) {
+				Piece piece = this.selectedTile.removePieceFromTile();
+				piece.updatePosition(this.targetTile.getPosition().x / 100, this.targetTile.getPosition().y / 100);
+				this.targetTile.addPieceToTile(piece);
+				this.selectedTile = null;
+				this.targetTile = null;
+				
+				gameboard.repaint();
+				currentPlayer = currentPlayer == ChessColor.WHITE ? ChessColor.BLACK : ChessColor.WHITE;				
+			} else {
+				System.out.println("INVALID MOVE TRY AGAIN!");
+			}
 		}
 	}
 	
@@ -74,6 +79,15 @@ public class Game extends JFrame {
 		catch(NullPointerException e) {
 			System.out.println("No piece here, keep looking");
 		}
+	}
+	
+	private boolean isValidMove(ArrayList<Point> validMoves, Point targetPos) {
+		for(int i = 0; i < validMoves.size(); i++) {
+			if(validMoves.get(i).equals(targetPos)) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	//Fixa till en finare funktion för att lägga till pieces

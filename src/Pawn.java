@@ -17,9 +17,22 @@ public class Pawn extends Piece {
 	public void setValidMoves() {
 		int checkedColor = checkColor();
 		
-		if(this.position == this.originalPos) {
+		if(this.position.equals(this.originalPos)) {
 			this.validMoves.add(new Point(this.position.x, this.position.y + (2 * checkedColor)));
 		}
+		if(this.position.x - 1 >= 0) {
+			this.validMoves.add(new Point(this.position.x -1, this.position.y + (1 * checkedColor)));
+		}
+		if(this.position.x + 1 <= 7) {
+			this.validMoves.add(new Point(this.position.x +1, this.position.y + (1 * checkedColor)));
+		}
+		this.validMoves.add(new Point(this.position.x, this.position.y + (1 * checkedColor)));
+		
+		/*
+		for(int i = 0; i < this.validMoves.size(); i++) {
+			System.out.println(this.validMoves.get(i).x + " <- x y -> " + this.validMoves.get(i).y);			
+		}
+		*/
 		
 	}
 	

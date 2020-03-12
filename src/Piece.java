@@ -32,6 +32,10 @@ public abstract class Piece extends Component {
 		this.position.y = y;
 	}
 	
+	public ArrayList<Point> getValidMoves(){
+		return validMoves;
+	}
+	
 	public abstract void setValidMoves();
 	
 }

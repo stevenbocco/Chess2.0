@@ -47,4 +47,8 @@ public class Tile extends Component {
 	public Point getPosition() {
 		return new Point(x, y);
 	}
+	
+	public Point getBoardPosition() {
+		return new Point(x/100, y/100);
+	}
 }
