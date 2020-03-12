@@ -14,6 +14,7 @@ public class Game extends JFrame {
 	private Tile selectedTile = null;
 	private Tile targetTile = null;
 	
+	private ChessColor currentPlayer = ChessColor.WHITE;
 	
 	public Game() {
 		super("Chess Game");
@@ -32,8 +33,13 @@ public class Game extends JFrame {
 	
 	public void handleClick(Tile tile) {
 		if(this.selectedTile == null && tile.hasPiece()) {
-			this.selectedTile = tile;
-			System.out.println("you selected a tile");
+			if(validTile(tile)) {
+				this.selectedTile = tile;
+				System.out.println("you selected a tile");				
+			}
+			else {
+				System.out.println("you selected an invalid tile");
+			}
 		} 
 		else if(this.selectedTile != null && tile.equals(selectedTile)) {
 			this.selectedTile = null;
@@ -49,9 +55,16 @@ public class Game extends JFrame {
 			gameboard.repaint();
 			this.selectedTile = null;
 			this.targetTile = null;
+			
+			currentPlayer = currentPlayer == ChessColor.WHITE ? ChessColor.BLACK : ChessColor.WHITE;
 		}
 	}
 	
+	private boolean validTile(Tile tile) {
+		return currentPlayer == tile.getPiece().getColor() ? true : false;
+	}
+	
+	//IS IT EVEN BEING USED HELLLOSO?
 	public void setSelectedTile(Tile tile) {
 		this.selectedTile = tile;
 		

@@ -34,8 +34,8 @@ public class GameBoard extends Canvas implements MouseListener {
 	
 	@Override
 	public void update(Graphics g) {
-		System.out.println("update function");
-		paint(g);
+		super.update(g);
+		System.out.println("update function");	
 	}
 	
 	@Override
