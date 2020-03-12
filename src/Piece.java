@@ -1,24 +1,26 @@
 import java.awt.Component;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 public abstract class Piece extends Component {
 	
 	protected BufferedImage pieceImage = null;
+	protected ArrayList<Point> validMoves;
+	protected Point position;
 	private ChessColor color;
-	private int x,y;
-	
 	
 	public Piece (ChessColor color, int x, int y) {
 		super();
-		this.x = x;
-		this.y = y;
+		this.position = new Point(x, y);
 		this.color = color;
+		this.validMoves = new ArrayList<Point>();
 	}
 
 	@Override
 	public void paint(Graphics g) {
-		g.drawImage(pieceImage, x * 100, y * 100, null);
+		g.drawImage(pieceImage, this.position.x * 100, this.position.y * 100, null);
 	}
 	
 	public ChessColor getColor() {
@@ -26,10 +28,10 @@ public abstract class Piece extends Component {
 	}
 	
 	public void updatePosition(int x, int y) {
-		this.x = x;
-		this.y = y;
+		this.position.x = x;
+		this.position.y = y;
 	}
 	
-	public abstract void movement();
+	public abstract void setValidMoves();
 	
 }

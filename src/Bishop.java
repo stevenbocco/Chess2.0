@@ -8,10 +8,12 @@ public class Bishop extends Piece {
 		this.pieceImage = color == ChessColor.WHITE ? TextureLoader.getBishopWhite() : TextureLoader.getBishopBlack();
 	}
 
-	@Override
-	public void movement() {
-		// TODO Auto-generated method stub
+	
 
+	@Override
+	public void setValidMoves() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -9,10 +9,12 @@ public class Rook extends Piece {
 		this.pieceImage = color == ChessColor.WHITE ? TextureLoader.getRookWhite() : TextureLoader.getRookBlack();
 	}
 
-	@Override
-	public void movement() {
-		// TODO Auto-generated method stub
+	
 
+	@Override
+	public void setValidMoves() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

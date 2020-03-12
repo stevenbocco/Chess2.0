@@ -8,10 +8,12 @@ public class Queen extends Piece {
 		this.pieceImage = color == ChessColor.WHITE ? TextureLoader.getQueenWhite() : TextureLoader.getQueenBlack();
 	}
 
-	@Override
-	public void movement() {
-		// TODO Auto-generated method stub
+	
 
+	@Override
+	public void setValidMoves() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
