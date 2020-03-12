@@ -40,11 +40,8 @@ public class GameBoard extends Canvas implements MouseListener {
 		int xPos = e.getX();
 		int yPos = e.getY();
 		
-		if(xPos >= 10 && xPos <= 10 + 100) {
-			System.out.println("Inside box");
-		} else {
-			System.out.println("Outside box");
-		}
+		
+		Tile tile = findTile(xPos, yPos);
 	}
 
 	@Override
@@ -75,5 +72,12 @@ public class GameBoard extends Canvas implements MouseListener {
 			return true;
 		}
 		return false;
+	}
+	
+	private Tile findTile(int xPos, int yPos) {
+		int i = (xPos/100);
+		int j = (yPos/100);
+
+		return board[i][j];
 	}
 }
