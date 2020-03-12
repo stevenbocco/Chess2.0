@@ -1,5 +1,3 @@
-import java.util.HashMap;
-
 public abstract class ChessTileCode {
 
 	private static Character[] chessLetters = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'};
