@@ -18,7 +18,7 @@ public abstract class Piece extends Component {
 
 	@Override
 	public void paint(Graphics g) {
-		g.drawImage(pieceImage, x, y, null);
+		g.drawImage(pieceImage, x * 100, y * 100, null);
 	}
 	
 	public abstract void movement();

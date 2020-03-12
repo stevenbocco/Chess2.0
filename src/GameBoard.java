@@ -77,7 +77,14 @@ public class GameBoard extends Canvas implements MouseListener {
 	private Tile findTile(int xPos, int yPos) {
 		int i = (xPos/100);
 		int j = (yPos/100);
-
+		
+		System.out.println(i);
+		System.out.println(j);
+		
+		return board[i][j];
+	}
+	
+	public Tile getTile(int i, int j) {
 		return board[i][j];
 	}
 }

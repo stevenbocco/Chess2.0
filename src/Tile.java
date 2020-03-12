@@ -22,4 +22,18 @@ public class Tile extends Component {
 			piece.paint(g);
 		}
 	}
+	
+	public void addPieceToTile(Piece piece) {
+		if(this.piece == null) {
+			this.piece = piece;			
+		}
+	}
+	
+	public void removePieceFromTile() {
+		this.piece = null;
+	}
+	
+	public boolean hasPiece() {
+		return piece != null ? true : false; 
+	}
 }
