@@ -12,6 +12,7 @@ public class Game extends JFrame {
 	private ArrayList<Piece> blackPieces;
 	
 	private Tile selectedTile = null;
+	private Tile targetTile = null;
 	
 	
 	public Game() {
@@ -27,6 +28,28 @@ public class Game extends JFrame {
 		this.pack();
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
+	}
+	
+	public void handleClick(Tile tile) {
+		if(this.selectedTile == null && tile.hasPiece()) {
+			this.selectedTile = tile;
+			System.out.println("you selected a tile");
+		} 
+		else if(this.selectedTile != null && tile.equals(selectedTile)) {
+			this.selectedTile = null;
+			System.out.println("you unselected the tile");
+		}
+		else if(this.selectedTile != null && !tile.equals(selectedTile)) {
+			this.targetTile = tile;
+			Piece piece = this.selectedTile.removePieceFromTile();
+			
+			
+			piece.updatePosition(this.targetTile.getPosition().x / 100, this.targetTile.getPosition().y / 100);
+			this.targetTile.addPieceToTile(piece);
+			gameboard.repaint();
+			this.selectedTile = null;
+			this.targetTile = null;
+		}
 	}
 	
 	public void setSelectedTile(Tile tile) {

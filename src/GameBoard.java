@@ -35,6 +35,7 @@ public class GameBoard extends Canvas implements MouseListener {
 	@Override
 	public void update(Graphics g) {
 		System.out.println("update function");
+		paint(g);
 	}
 	
 	@Override
@@ -43,8 +44,10 @@ public class GameBoard extends Canvas implements MouseListener {
 		int yPos = e.getY();
 		
 		
+		
 		Tile tile = findTile(xPos, yPos);
-		game.setSelectedTile(tile);
+		
+		game.handleClick(tile);
 	}
 
 	@Override

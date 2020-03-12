@@ -1,5 +1,6 @@
 import java.awt.Component;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.image.BufferedImage;
 
 public class Tile extends Component {
@@ -29,8 +30,10 @@ public class Tile extends Component {
 		}
 	}
 	
-	public void removePieceFromTile() {
+	public Piece removePieceFromTile() {
+		Piece piece = this.piece;
 		this.piece = null;
+		return piece;
 	}
 	
 	public boolean hasPiece() {
@@ -39,5 +42,9 @@ public class Tile extends Component {
 	
 	public Piece getPiece() throws NullPointerException{
 		return this.piece;
+	}
+	
+	public Point getPosition() {
+		return new Point(x, y);
 	}
 }

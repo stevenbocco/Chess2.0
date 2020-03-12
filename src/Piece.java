@@ -25,8 +25,11 @@ public abstract class Piece extends Component {
 		return this.color;
 	}
 	
+	public void updatePosition(int x, int y) {
+		this.x = x;
+		this.y = y;
+	}
+	
 	public abstract void movement();
-	
-	
 	
 }
