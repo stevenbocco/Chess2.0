@@ -21,6 +21,12 @@ public abstract class Piece extends Component {
 		g.drawImage(pieceImage, x * 100, y * 100, null);
 	}
 	
+	public ChessColor getColor() {
+		return this.color;
+	}
+	
 	public abstract void movement();
+	
+	
 	
 }

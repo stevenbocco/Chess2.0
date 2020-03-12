@@ -8,11 +8,13 @@ import java.awt.event.MouseListener;
 public class GameBoard extends Canvas implements MouseListener {
 	
 	private Tile[][] board;
+	private Game game;
 	
-	public GameBoard(int CANVAS_WIDTH, int CANVAS_HEIGHT) {
+	public GameBoard(int CANVAS_WIDTH, int CANVAS_HEIGHT, Game game) {
 		setBackground (Color.BLACK);  
 		setPreferredSize(new Dimension(CANVAS_WIDTH, CANVAS_HEIGHT));
-        
+		
+		this.game = game;
         this.addMouseListener(this);
         this.board = new Tile[8][8];
         
@@ -42,6 +44,7 @@ public class GameBoard extends Canvas implements MouseListener {
 		
 		
 		Tile tile = findTile(xPos, yPos);
+		game.setSelectedTile(tile);
 	}
 
 	@Override

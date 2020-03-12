@@ -11,6 +11,8 @@ public class Game extends JFrame {
 	private ArrayList<Piece> whitePieces;
 	private ArrayList<Piece> blackPieces;
 	
+	private Tile selectedTile = null;
+	
 	
 	public Game() {
 		super("Chess Game");
@@ -18,13 +20,24 @@ public class Game extends JFrame {
 		whitePieces = new ArrayList<Piece>(16);
 		blackPieces = new ArrayList<Piece>(16);
 		
-		gameboard = new GameBoard(WINDOW_WIDTH, WINDOW_HEIGHT);
+		gameboard = new GameBoard(WINDOW_WIDTH, WINDOW_HEIGHT, this);
 		this.getContentPane().add(gameboard);
 		initializePieces();
 		
 		this.pack();
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
+	}
+	
+	public void setSelectedTile(Tile tile) {
+		this.selectedTile = tile;
+		
+		try {
+			System.out.println(tile.getPiece().getClass().getName() + " " + tile.getPiece().getColor());
+		}
+		catch(NullPointerException e) {
+			System.out.println("No piece here, keep looking");
+		}
 	}
 	
 	//Fixa till en finare funktion för att lägga till pieces

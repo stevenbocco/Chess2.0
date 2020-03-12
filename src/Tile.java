@@ -36,4 +36,8 @@ public class Tile extends Component {
 	public boolean hasPiece() {
 		return piece != null ? true : false; 
 	}
+	
+	public Piece getPiece() throws NullPointerException{
+		return this.piece;
+	}
 }
