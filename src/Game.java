@@ -36,7 +36,7 @@ public class Game extends JFrame {
 		
 		for(int i = 0; i < 8; i++) { //Create all white pawns
 			Piece piece = new Pawn(ChessColor.WHITE, i, 6);
-			blackPieces.add(piece);
+			whitePieces.add(piece);
 			gameboard.getTile(i, 6).addPieceToTile(piece);
 		}
 	}
