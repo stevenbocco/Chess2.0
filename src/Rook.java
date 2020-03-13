@@ -24,7 +24,5 @@ public class Rook extends Piece {
 				this.validMoves.add(new Point(this.position.x, i));
 			}
 		}
-		
 	}
-
 }

@@ -40,14 +40,7 @@ public class King extends Piece {
 		//UpLeft
 		this.validMoves.add(new Point(this.position.x - 1, this.position.y + 1));
 		
-		ArrayList<Point> temp = new ArrayList<Point>();
-		
-		for(Point p : validMoves) {
-			if(p.x <= 7 && p.x >= 0 && p.y <= 7 && p.y >= 0) {
-				temp.add(p);
-			}
-		}
-		this.validMoves = temp;
+		checkMoveBounds();
 	}
 
 }

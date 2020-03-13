@@ -1,4 +1,5 @@
 import java.awt.Point;
+import java.util.ArrayList;
 
 public class Bishop extends Piece {
 
@@ -15,8 +16,13 @@ public class Bishop extends Piece {
 	public void setValidMoves() {
 		this.validMoves.clear();
 		
+		for(int i = 1; i < 8; i++) {
+			this.validMoves.add(new Point(this.position.x -i, this.position.y -i));
+			this.validMoves.add(new Point(this.position.x +i, this.position.y -i));
+			this.validMoves.add(new Point(this.position.x -i, this.position.y +i));
+			this.validMoves.add(new Point(this.position.x +i, this.position.y +i));
+		}
 		
-		
+		checkMoveBounds();
 	}
-
 }

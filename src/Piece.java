@@ -36,6 +36,17 @@ public abstract class Piece extends Component {
 		return validMoves;
 	}
 	
+	protected void checkMoveBounds() {
+		ArrayList<Point> temp = new ArrayList<Point>();
+		
+		for(Point p : validMoves) {
+			if(p.x <= 7 && p.x >= 0 && p.y <= 7 && p.y >= 0) {
+				temp.add(p);
+			}
+		}
+		this.validMoves = temp;
+	}
+	
 	public abstract void setValidMoves();
 	
 }
