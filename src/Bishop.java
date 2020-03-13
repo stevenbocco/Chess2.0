@@ -1,3 +1,4 @@
+import java.awt.Point;
 
 public class Bishop extends Piece {
 
@@ -12,7 +13,9 @@ public class Bishop extends Piece {
 
 	@Override
 	public void setValidMoves() {
-		// TODO Auto-generated method stub
+		this.validMoves.clear();
+		
+		
 		
 	}
 

@@ -1,3 +1,4 @@
+import java.awt.Point;
 
 public class Rook extends Piece {
 
@@ -13,7 +14,16 @@ public class Rook extends Piece {
 
 	@Override
 	public void setValidMoves() {
-		// TODO Auto-generated method stub
+		this.validMoves.clear();
+		
+		for(int i = 0; i < 8; i++) {
+			if(i != this.position.x) {
+				this.validMoves.add(new Point(i, this.position.y));
+			}
+			if(i != this.position.y) {
+				this.validMoves.add(new Point(this.position.x, i));
+			}
+		}
 		
 	}
 
