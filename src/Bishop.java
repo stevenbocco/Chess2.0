@@ -16,12 +16,10 @@ public class Bishop extends Piece {
 	public void setValidMoves(Tile[][] gameboard) {
 		this.validMoves.clear();
 		
-		for(int i = 1; i < 8; i++) {
-			this.validMoves.add(new Point(this.position.x -i, this.position.y -i));
-			this.validMoves.add(new Point(this.position.x +i, this.position.y -i));
-			this.validMoves.add(new Point(this.position.x -i, this.position.y +i));
-			this.validMoves.add(new Point(this.position.x +i, this.position.y +i));
-		}
+		DiagonalMovement(gameboard, -1, -1, 7);
+		DiagonalMovement(gameboard, 1, -1, 7);
+		DiagonalMovement(gameboard, -1, 1, 7);
+		DiagonalMovement(gameboard, 1, 1, 7);
 		
 		checkMoveBounds();
 	}

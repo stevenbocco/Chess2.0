@@ -16,21 +16,17 @@ public class Queen extends Piece {
 	public void setValidMoves(Tile[][] gameboard) {
 		this.validMoves.clear();
 		
-		for(int i = 1; i < 8; i++) { //All Diagonal movement
-			this.validMoves.add(new Point(this.position.x -i, this.position.y -i));
-			this.validMoves.add(new Point(this.position.x +i, this.position.y -i));
-			this.validMoves.add(new Point(this.position.x -i, this.position.y +i));
-			this.validMoves.add(new Point(this.position.x +i, this.position.y +i));
-		}
+		//Horizontal and Vertical
+		DiagonalMovement(gameboard, 0, 1, 7);
+		DiagonalMovement(gameboard, 0, -1, 7);
+		DiagonalMovement(gameboard, 1, 0, 7);
+		DiagonalMovement(gameboard, -1, 0, 7);
 		
-		for(int i = 0; i < 8; i++) { // All Horizontal and Vertical movement
-			if(i != this.position.x) {
-				this.validMoves.add(new Point(i, this.position.y));
-			}
-			if(i != this.position.y) {
-				this.validMoves.add(new Point(this.position.x, i));
-			}
-		}
+		//Diagonal
+		DiagonalMovement(gameboard, -1, -1, 7);
+		DiagonalMovement(gameboard, 1, -1, 7);
+		DiagonalMovement(gameboard, -1, 1, 7);
+		DiagonalMovement(gameboard, 1, 1, 7);
 	
 		checkMoveBounds();
 	}

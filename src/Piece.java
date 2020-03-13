@@ -47,6 +47,21 @@ public abstract class Piece extends Component {
 		this.validMoves = temp;
 	}
 	
+	protected void DiagonalMovement(Tile[][] gameboard, int x, int y, int maxMoves) {
+		for(int i = 1; i <= maxMoves; i++) {
+			try {
+				if(gameboard[position.x + (i * x)][position.y + (i * y)].hasPiece())
+					if(gameboard[position.x + (i * x)][position.y + (i * y)].getPiece().getColor() != this.color) {
+						validMoves.add(new Point(position.x + (i * x), position.y + (i * y)));
+						break;
+					} else { break; }
+				
+				validMoves.add(new Point(position.x + (i * x), position.y + (i * y)));
+				
+			} catch (ArrayIndexOutOfBoundsException e) {}
+		}
+	}
+	
 	public abstract void setValidMoves(Tile[][] gameboard);
 	
 }

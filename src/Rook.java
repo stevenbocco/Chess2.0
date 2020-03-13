@@ -16,13 +16,11 @@ public class Rook extends Piece {
 	public void setValidMoves(Tile[][] gameboard) {
 		this.validMoves.clear();
 		
-		for(int i = 0; i < 8; i++) {
-			if(i != this.position.x) {
-				this.validMoves.add(new Point(i, this.position.y));
-			}
-			if(i != this.position.y) {
-				this.validMoves.add(new Point(this.position.x, i));
-			}
-		}
+		DiagonalMovement(gameboard, 0, 1, 7);
+		DiagonalMovement(gameboard, 0, -1, 7);
+		DiagonalMovement(gameboard, 1, 0, 7);
+		DiagonalMovement(gameboard, -1, 0, 7);
+		
+		checkMoveBounds();
 	}
 }

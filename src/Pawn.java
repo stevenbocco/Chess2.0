@@ -20,8 +20,16 @@ public class Pawn extends Piece {
 		this.validMoves.clear();
 		
 		if(this.position.equals(this.originalPos)) {
-			this.validMoves.add(new Point(this.position.x, this.position.y + (2 * checkedColor)));
+			try {
+				if(!gameboard[this.position.x][this.position.y + (2 * checkedColor)].hasPiece())
+					this.validMoves.add(new Point(this.position.x, this.position.y + (2 * checkedColor)));
+			} catch (ArrayIndexOutOfBoundsException e) {}
 		}
+		
+		try {
+			if(!gameboard[this.position.x][this.position.y + (1 * checkedColor)].hasPiece())
+				this.validMoves.add(new Point(this.position.x, this.position.y + (1 * checkedColor)));	
+		} catch (ArrayIndexOutOfBoundsException e) {}
 		
 		if(this.position.x - 1 >= 0) //Checking if the diagonal tile has a piece and if that piece is the opposite color
 			if(gameboard[position.x -1][position.y + (1 * checkedColor)].hasPiece()) 
@@ -32,9 +40,6 @@ public class Pawn extends Piece {
 			if(gameboard[position.x + 1][position.y + (1 * checkedColor)].hasPiece()) 
 				if(gameboard[position.x + 1][position.y + (1 * checkedColor)].getPiece().getColor() != getColor())
 					this.validMoves.add(new Point(this.position.x + 1, this.position.y + (1 * checkedColor)));
-		
-		this.validMoves.add(new Point(this.position.x, this.position.y + (1 * checkedColor)));
-		
 	}
 	
 	private int checkColor() {

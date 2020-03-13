@@ -16,29 +16,17 @@ public class King extends Piece {
 	public void setValidMoves(Tile[][] gameboard) {
 		this.validMoves.clear();
 		
-		//Up
-		this.validMoves.add(new Point(this.position.x, this.position.y + 1));
+		//Horizontal and Vertical
+		DiagonalMovement(gameboard, 0, 1, 1);
+		DiagonalMovement(gameboard, 0, -1, 1);
+		DiagonalMovement(gameboard, 1, 0, 1);
+		DiagonalMovement(gameboard, -1, 0, 1);
 		
-		//UpRight
-		this.validMoves.add(new Point(this.position.x + 1, this.position.y + 1));
-		
-		//Right
-		this.validMoves.add(new Point(this.position.x + 1, this.position.y));
-		
-		//DownRight
-		this.validMoves.add(new Point(this.position.x + 1, this.position.y - 1));
-		
-		//Down
-		this.validMoves.add(new Point(this.position.x, this.position.y - 1));
-		
-		//DownLeft
-		this.validMoves.add(new Point(this.position.x - 1, this.position.y - 1));
-		
-		//Left
-		this.validMoves.add(new Point(this.position.x - 1, this.position.y));
-		
-		//UpLeft
-		this.validMoves.add(new Point(this.position.x - 1, this.position.y + 1));
+		//Diagonal
+		DiagonalMovement(gameboard, -1, -1, 1);
+		DiagonalMovement(gameboard, 1, -1, 1);
+		DiagonalMovement(gameboard, -1, 1, 1);
+		DiagonalMovement(gameboard, 1, 1, 1);
 		
 		checkMoveBounds();
 	}

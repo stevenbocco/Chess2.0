@@ -18,23 +18,37 @@ public class Knight extends Piece {
 		this.validMoves.clear();
 		
 		//Upper
-		this.validMoves.add(new Point(this.position.x + 1, this.position.y + 2));
-		this.validMoves.add(new Point(this.position.x - 1, this.position.y + 2));
+		knightMovement(gameboard, 1, 2);
+		knightMovement(gameboard, -1, 2);
 		
 		//Lower
-		this.validMoves.add(new Point(this.position.x + 1, this.position.y - 2));
-		this.validMoves.add(new Point(this.position.x - 1, this.position.y - 2));
+		knightMovement(gameboard, 1, -2);
+		knightMovement(gameboard, -1, -2);
 		
 		//Right
-		this.validMoves.add(new Point(this.position.x + 2, this.position.y + 1));
-		this.validMoves.add(new Point(this.position.x + 2, this.position.y - 1));
+		knightMovement(gameboard, 2, 1);
+		knightMovement(gameboard, 2, -1);
 		
 		//Left
-		this.validMoves.add(new Point(this.position.x - 2, this.position.y + 1));
-		this.validMoves.add(new Point(this.position.x - 2, this.position.y - 1));
+		knightMovement(gameboard, -2, 1);
+		knightMovement(gameboard, -2, -1);
 		
 		checkMoveBounds();
 		
+	}
+	
+	private void knightMovement(Tile[][] gameboard, int x, int y) {
+		try {
+			if(gameboard[this.position.x + x][this.position.y + y].hasPiece()) {
+				if(gameboard[this.position.x + x][this.position.y + y].getPiece().getColor() != getColor()) {
+					this.validMoves.add(new Point(this.position.x + x, this.position.y + y));								
+				}
+			} else {
+				this.validMoves.add(new Point(this.position.x + x, this.position.y + y));
+			}
+		} 
+		catch (ArrayIndexOutOfBoundsException e) {}
+		catch (NullPointerException e) {}
 	}
 
 }
