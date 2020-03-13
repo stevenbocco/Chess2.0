@@ -14,7 +14,7 @@ public class Pawn extends Piece {
 	
 
 	@Override
-	public void setValidMoves() {
+	public void setValidMoves(Tile[][] gameboard) {
 		int checkedColor = checkColor();
 		
 		this.validMoves.clear();
@@ -22,19 +22,18 @@ public class Pawn extends Piece {
 		if(this.position.equals(this.originalPos)) {
 			this.validMoves.add(new Point(this.position.x, this.position.y + (2 * checkedColor)));
 		}
-		if(this.position.x - 1 >= 0) {
-			this.validMoves.add(new Point(this.position.x -1, this.position.y + (1 * checkedColor)));
-		}
-		if(this.position.x + 1 <= 7) {
-			this.validMoves.add(new Point(this.position.x +1, this.position.y + (1 * checkedColor)));
-		}
-		this.validMoves.add(new Point(this.position.x, this.position.y + (1 * checkedColor)));
 		
-		/*
-		for(int i = 0; i < this.validMoves.size(); i++) {
-			System.out.println(this.validMoves.get(i).x + " <- x y -> " + this.validMoves.get(i).y);			
-		}
-		*/
+		if(this.position.x - 1 >= 0) //Checking if the diagonal tile has a piece and if that piece is the opposite color
+			if(gameboard[position.x -1][position.y + (1 * checkedColor)].hasPiece()) 
+				if(gameboard[position.x -1][position.y + (1 * checkedColor)].getPiece().getColor() != getColor())
+					this.validMoves.add(new Point(this.position.x -1, this.position.y + (1 * checkedColor)));				
+		
+		if(this.position.x + 1 <= 7) //Checking if the diagonal tile has a piece and if that piece is the opposite color
+			if(gameboard[position.x + 1][position.y + (1 * checkedColor)].hasPiece()) 
+				if(gameboard[position.x + 1][position.y + (1 * checkedColor)].getPiece().getColor() != getColor())
+					this.validMoves.add(new Point(this.position.x + 1, this.position.y + (1 * checkedColor)));
+		
+		this.validMoves.add(new Point(this.position.x, this.position.y + (1 * checkedColor)));
 		
 	}
 	

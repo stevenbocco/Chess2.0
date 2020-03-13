@@ -13,7 +13,7 @@ public class Rook extends Piece {
 	
 
 	@Override
-	public void setValidMoves() {
+	public void setValidMoves(Tile[][] gameboard) {
 		this.validMoves.clear();
 		
 		for(int i = 0; i < 8; i++) {

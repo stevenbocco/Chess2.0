@@ -45,6 +45,10 @@ public class GameBoard extends Canvas implements MouseListener {
 		Tile tile = findTile(xPos, yPos);
 		game.handleClick(tile);
 	}
+	
+	public Tile[][] getBoard(){
+		return this.board;
+	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {}

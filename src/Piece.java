@@ -47,6 +47,6 @@ public abstract class Piece extends Component {
 		this.validMoves = temp;
 	}
 	
-	public abstract void setValidMoves();
+	public abstract void setValidMoves(Tile[][] gameboard);
 	
 }

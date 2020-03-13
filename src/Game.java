@@ -36,7 +36,7 @@ public class Game extends JFrame {
 		if(this.selectedTile == null && tile.hasPiece()) {
 			if(validTile(tile)) {
 				this.selectedTile = tile;
-				this.selectedTile.getPiece().setValidMoves();
+				this.selectedTile.getPiece().setValidMoves(gameboard.getBoard());
 				System.out.println(this.selectedTile.getPiece().getValidMoves());
 				
 				System.out.println("you selected " + this.selectedTile.getTileCode());				
@@ -86,6 +86,7 @@ public class Game extends JFrame {
 	private boolean isValidMove(ArrayList<Point> validMoves, Point targetPos) {
 		for(int i = 0; i < validMoves.size(); i++) {
 			if(validMoves.get(i).equals(targetPos)) {
+				
 				return true;
 			}
 		}

@@ -13,7 +13,7 @@ public class Knight extends Piece {
 	
 
 	@Override
-	public void setValidMoves() {
+	public void setValidMoves(Tile[][] gameboard) {
 		
 		this.validMoves.clear();
 		
