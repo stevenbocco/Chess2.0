@@ -15,6 +15,8 @@ public class Game extends JFrame {
 	private Tile selectedTile = null;
 	private Tile targetTile = null;
 	
+	private Tile[][] theoreticalBoard;
+	
 	private ChessColor currentPlayer = ChessColor.WHITE;
 	
 	public Game() {
@@ -67,6 +69,10 @@ public class Game extends JFrame {
 	
 	private boolean validTile(Tile tile) {
 		return currentPlayer == tile.getPiece().getColor() ? true : false;
+	}
+	
+	private boolean isInCheck() {
+		
 	}
 	
 	private void movePiece() {
