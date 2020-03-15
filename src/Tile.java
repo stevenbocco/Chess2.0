@@ -32,10 +32,14 @@ public class Tile extends Component {
 		}
 	}
 	
-	public Piece removePieceFromTile() {
+	public Piece movePieceFromTile() {
 		Piece piece = this.piece;
 		this.piece = null;
 		return piece;
+	}
+	
+	public void removePieceFromTile() {
+		this.piece = null;
 	}
 	
 	public boolean hasPiece() {

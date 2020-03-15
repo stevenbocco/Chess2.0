@@ -52,16 +52,16 @@ public class Game extends JFrame {
 		else if(this.selectedTile != null && !tile.equals(selectedTile)) {
 			this.targetTile = tile;
 			
-			if(isValidMove(this.selectedTile.getPiece().getValidMoves(), this.targetTile.getBoardPosition())) {
+			if(isValidMove(this.selectedTile.getPiece().getValidMoves(), this.targetTile.getBoardPosition()) && validTheoreticalMove()) {
 				if(hasEnemyPiece()) {
-					Piece targetPiece = this.targetTile.removePieceFromTile();
+					Piece targetPiece = this.targetTile.movePieceFromTile();
 					removePieceFromBoard(targetPiece);
 				}
 				
 				movePiece();
 				
 				gameboard.repaint();
-				currentPlayer = currentPlayer == ChessColor.WHITE ? ChessColor.BLACK : ChessColor.WHITE;				
+				currentPlayer = currentPlayer == ChessColor.WHITE ? ChessColor.BLACK : ChessColor.WHITE;	
 			} 
 			else { System.out.println("INVALID MOVE TRY AGAIN!"); }
 		}
@@ -71,12 +71,65 @@ public class Game extends JFrame {
 		return currentPlayer == tile.getPiece().getColor() ? true : false;
 	}
 	
-	private boolean isInCheck() {
+	private boolean isInCheck(ArrayList<Piece> pieceList) {
+		
+		for(Piece p : pieceList) {
+			p.setValidMoves(gameboard.getBoard());
+			
+			for(Point point : p.getValidMoves()) {
+				if(gameboard.getBoard()[point.x][point.y].hasPiece()) {
+					if(gameboard.getBoard()[point.x][point.y].getPiece().getClass().getName() == "King") {
+						return true;
+					}
+				}
+			}
+		}
+		
+		return false;
+	}
+	
+	private boolean validTheoreticalMove() {
+		
+		ArrayList<Piece> temp = new ArrayList<Piece>();
+		if(currentPlayer == ChessColor.WHITE) {
+			for(Piece p : blackPieces) {
+				temp.add(p);
+			}
+		}
+		else {
+			for(Piece p : whitePieces) {
+				temp.add(p);
+			}
+		}
+		
+		Piece origSelectedPiece = this.selectedTile.movePieceFromTile();
+		Piece origTargetPiece = null;
+		if(this.targetTile.hasPiece()) {
+			origTargetPiece = this.targetTile.movePieceFromTile();
+			temp.remove(origTargetPiece);
+		}
+		
+		
+		
+		
+		origSelectedPiece.updatePosition(this.targetTile.getPosition().x / 100, this.targetTile.getPosition().y / 100);
+		
+		this.targetTile.addPieceToTile(origSelectedPiece);
+		
+		
+		boolean inCheck = isInCheck(temp);
+		
+		origSelectedPiece.updatePosition(this.selectedTile.getPosition().x / 100, this.selectedTile.getPosition().y / 100);
+		this.targetTile.removePieceFromTile();
+		this.selectedTile.addPieceToTile(origSelectedPiece);
+		this.targetTile.addPieceToTile(origTargetPiece);
+		
+		return !inCheck;
 		
 	}
 	
 	private void movePiece() {
-		Piece piece = this.selectedTile.removePieceFromTile();
+		Piece piece = this.selectedTile.movePieceFromTile();
 		piece.updatePosition(this.targetTile.getPosition().x / 100, this.targetTile.getPosition().y / 100);
 		
 		this.targetTile.addPieceToTile(piece);

@@ -12,6 +12,15 @@ public class King extends Piece {
 
 	
 
+	//Temporary
+	@Override
+	public void updatePosition(int x, int y) {
+		this.position.x = x;
+		this.position.y = y;
+		System.out.println("King new position is " + this.position);
+	}
+	
+	
 	@Override
 	public void setValidMoves(Tile[][] gameboard) {
 		this.validMoves.clear();
