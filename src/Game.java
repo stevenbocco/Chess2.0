@@ -41,9 +41,7 @@ public class Game extends JFrame {
 				
 				System.out.println("you selected " + this.selectedTile.getTileCode());				
 			}
-			else {
-				System.out.println("you selected an invalid tile");
-			}
+			else { System.out.println("you selected an invalid tile"); }
 		} 
 		else if(this.selectedTile != null && tile.equals(selectedTile)) {
 			this.selectedTile = null;
@@ -53,17 +51,17 @@ public class Game extends JFrame {
 			this.targetTile = tile;
 			
 			if(isValidMove(this.selectedTile.getPiece().getValidMoves(), this.targetTile.getBoardPosition())) {
-				Piece piece = this.selectedTile.removePieceFromTile();
-				piece.updatePosition(this.targetTile.getPosition().x / 100, this.targetTile.getPosition().y / 100);
-				this.targetTile.addPieceToTile(piece);
-				this.selectedTile = null;
-				this.targetTile = null;
+				if(hasEnemyPiece()) {
+					Piece targetPiece = this.targetTile.removePieceFromTile();
+					removePieceFromBoard(targetPiece);
+				}
+				
+				movePiece();
 				
 				gameboard.repaint();
 				currentPlayer = currentPlayer == ChessColor.WHITE ? ChessColor.BLACK : ChessColor.WHITE;				
-			} else {
-				System.out.println("INVALID MOVE TRY AGAIN!");
-			}
+			} 
+			else { System.out.println("INVALID MOVE TRY AGAIN!"); }
 		}
 	}
 	
@@ -71,25 +69,37 @@ public class Game extends JFrame {
 		return currentPlayer == tile.getPiece().getColor() ? true : false;
 	}
 	
-	//IS IT EVEN BEING USED HELLLOSO?
-	public void setSelectedTile(Tile tile) {
-		this.selectedTile = tile;
+	private void movePiece() {
+		Piece piece = this.selectedTile.removePieceFromTile();
+		piece.updatePosition(this.targetTile.getPosition().x / 100, this.targetTile.getPosition().y / 100);
 		
-		try {
-			System.out.println(tile.getPiece().getClass().getName() + " " + tile.getPiece().getColor());
-		}
-		catch(NullPointerException e) {
-			System.out.println("No piece here, keep looking");
+		this.targetTile.addPieceToTile(piece);
+		this.selectedTile = null;
+		this.targetTile = null;
+	}
+	
+	private void removePieceFromBoard(Piece piece) {
+		if(currentPlayer == ChessColor.WHITE) {
+			blackPieces.remove(piece);
+		} 
+		else{
+			whitePieces.remove(piece);
 		}
 	}
 	
 	private boolean isValidMove(ArrayList<Point> validMoves, Point targetPos) {
 		for(int i = 0; i < validMoves.size(); i++) {
 			if(validMoves.get(i).equals(targetPos)) {
-				
 				return true;
 			}
 		}
+		return false;
+	}
+	
+	private boolean hasEnemyPiece() {
+		if(this.targetTile.hasPiece())
+			if(this.targetTile.getPiece().getColor() != currentPlayer) 
+				return true;				
 		return false;
 	}
 	
@@ -161,6 +171,5 @@ public class Game extends JFrame {
 			gameboard.getTile(i, 1).addPieceToTile(piece);
 			gameboard.getTile(i, 6).addPieceToTile(piece2);
 		}
-		
 	}
 }

@@ -17,16 +17,16 @@ public class King extends Piece {
 		this.validMoves.clear();
 		
 		//Horizontal and Vertical
-		DiagonalMovement(gameboard, 0, 1, 1);
-		DiagonalMovement(gameboard, 0, -1, 1);
-		DiagonalMovement(gameboard, 1, 0, 1);
-		DiagonalMovement(gameboard, -1, 0, 1);
+		setMovement(gameboard, 0, 1, 1);
+		setMovement(gameboard, 0, -1, 1);
+		setMovement(gameboard, 1, 0, 1);
+		setMovement(gameboard, -1, 0, 1);
 		
 		//Diagonal
-		DiagonalMovement(gameboard, -1, -1, 1);
-		DiagonalMovement(gameboard, 1, -1, 1);
-		DiagonalMovement(gameboard, -1, 1, 1);
-		DiagonalMovement(gameboard, 1, 1, 1);
+		setMovement(gameboard, -1, -1, 1);
+		setMovement(gameboard, 1, -1, 1);
+		setMovement(gameboard, -1, 1, 1);
+		setMovement(gameboard, 1, 1, 1);
 		
 		checkMoveBounds();
 	}

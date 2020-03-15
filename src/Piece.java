@@ -47,7 +47,7 @@ public abstract class Piece extends Component {
 		this.validMoves = temp;
 	}
 	
-	protected void DiagonalMovement(Tile[][] gameboard, int x, int y, int maxMoves) {
+	protected void setMovement(Tile[][] gameboard, int x, int y, int maxMoves) {
 		for(int i = 1; i <= maxMoves; i++) {
 			try {
 				if(gameboard[position.x + (i * x)][position.y + (i * y)].hasPiece())

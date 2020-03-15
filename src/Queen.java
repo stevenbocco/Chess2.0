@@ -17,16 +17,16 @@ public class Queen extends Piece {
 		this.validMoves.clear();
 		
 		//Horizontal and Vertical
-		DiagonalMovement(gameboard, 0, 1, 7);
-		DiagonalMovement(gameboard, 0, -1, 7);
-		DiagonalMovement(gameboard, 1, 0, 7);
-		DiagonalMovement(gameboard, -1, 0, 7);
+		setMovement(gameboard, 0, 1, 7);
+		setMovement(gameboard, 0, -1, 7);
+		setMovement(gameboard, 1, 0, 7);
+		setMovement(gameboard, -1, 0, 7);
 		
 		//Diagonal
-		DiagonalMovement(gameboard, -1, -1, 7);
-		DiagonalMovement(gameboard, 1, -1, 7);
-		DiagonalMovement(gameboard, -1, 1, 7);
-		DiagonalMovement(gameboard, 1, 1, 7);
+		setMovement(gameboard, -1, -1, 7);
+		setMovement(gameboard, 1, -1, 7);
+		setMovement(gameboard, -1, 1, 7);
+		setMovement(gameboard, 1, 1, 7);
 	
 		checkMoveBounds();
 	}

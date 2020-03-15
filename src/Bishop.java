@@ -16,10 +16,10 @@ public class Bishop extends Piece {
 	public void setValidMoves(Tile[][] gameboard) {
 		this.validMoves.clear();
 		
-		DiagonalMovement(gameboard, -1, -1, 7);
-		DiagonalMovement(gameboard, 1, -1, 7);
-		DiagonalMovement(gameboard, -1, 1, 7);
-		DiagonalMovement(gameboard, 1, 1, 7);
+		setMovement(gameboard, -1, -1, 7);
+		setMovement(gameboard, 1, -1, 7);
+		setMovement(gameboard, -1, 1, 7);
+		setMovement(gameboard, 1, 1, 7);
 		
 		checkMoveBounds();
 	}
