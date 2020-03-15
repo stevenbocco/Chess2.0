@@ -91,15 +91,8 @@ public class Game extends JFrame {
 	private boolean validTheoreticalMove() {
 		
 		ArrayList<Piece> temp = new ArrayList<Piece>();
-		if(currentPlayer == ChessColor.WHITE) {
-			for(Piece p : blackPieces) {
-				temp.add(p);
-			}
-		}
-		else {
-			for(Piece p : whitePieces) {
-				temp.add(p);
-			}
+		for(Piece p : currentPlayer == ChessColor.WHITE ? blackPieces : whitePieces) {
+			temp.add(p);
 		}
 		
 		Piece origSelectedPiece = this.selectedTile.movePieceFromTile();
