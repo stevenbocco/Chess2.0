@@ -12,6 +12,8 @@ public class Game extends JFrame {
 	private ArrayList<Piece> whitePieces;
 	private ArrayList<Piece> blackPieces;
 	
+	private boolean gameOver;
+	
 	private Tile selectedTile = null;
 	private Tile targetTile = null;
 	
@@ -22,6 +24,7 @@ public class Game extends JFrame {
 		TextureLoader.loadTextures();
 		whitePieces = new ArrayList<Piece>(16);
 		blackPieces = new ArrayList<Piece>(16);
+		gameOver = false;
 		
 		gameboard = new GameBoard(WINDOW_WIDTH, WINDOW_HEIGHT, this);
 		this.getContentPane().add(gameboard);
@@ -33,43 +36,70 @@ public class Game extends JFrame {
 	}
 	
 	public void handleClick(Tile tile) {
-		if(this.selectedTile == null && tile.hasPiece()) {
-			if(validTile(tile)) {
-				this.selectedTile = tile;
-				this.selectedTile.getPiece().setValidMoves(gameboard.getBoard());
-				System.out.println(this.selectedTile.getPiece().getValidMoves());
-				
-				System.out.println("you selected " + this.selectedTile.getTileCode());				
-			}
-			else { System.out.println("you selected an invalid tile"); }
-		} 
-		else if(this.selectedTile != null && tile.equals(selectedTile)) {
-			this.selectedTile = null;
-			System.out.println("you unselected the tile");
-		}
-		else if(this.selectedTile != null && !tile.equals(selectedTile)) {
-			this.targetTile = tile;
-			
-			if(isValidMove(this.selectedTile.getPiece().getValidMoves(), this.targetTile.getBoardPosition()) && validTheoreticalMove(this.selectedTile, this.targetTile)) {
-				if(hasEnemyPiece()) {
-					Piece targetPiece = this.targetTile.movePieceFromTile();
-					removePieceFromBoard(targetPiece);
-				}
-				
-				movePiece();
-				
-				gameboard.repaint();
-				currentPlayer = currentPlayer == ChessColor.WHITE ? ChessColor.BLACK : ChessColor.WHITE;	
-				
-				if(isInCheck(currentPlayer == ChessColor.WHITE ? blackPieces : whitePieces))
-					if(isCheckMate()) 
-						System.out.println("CHECKMATE");											
-					else 
-						System.out.println("CHECK");
+		if(!gameOver) {
+			if(this.selectedTile == null && tile.hasPiece()) {
+				selectPiece(tile);
 			} 
-			else { System.out.println("INVALID MOVE TRY AGAIN!"); }
+			else if(this.selectedTile != null && tile.equals(selectedTile)) {
+				unselectPiece();
+			}
+			else if(this.selectedTile != null && !tile.equals(selectedTile)) {
+				movePieceLogic(tile);
+			}
 		}
 	}
+	
+	public boolean isGameOver() {
+		return this.gameOver;
+	}
+	
+	public ChessColor getWinner() {
+		return currentPlayer == ChessColor.WHITE ? ChessColor.BLACK : ChessColor.WHITE;
+	}
+	
+	private void selectPiece(Tile tile) {
+		if(validTile(tile)) {
+			this.selectedTile = tile;
+			this.selectedTile.getPiece().setValidMoves(gameboard.getBoard());
+			
+			System.out.println("You selected " + this.selectedTile.getTileCode());				
+		}
+		else { System.out.println("You selected an invalid tile"); }
+	}
+	
+	private void unselectPiece() {
+		this.selectedTile = null;
+		System.out.println("You unselected the tile");
+	}
+	
+	private void movePieceLogic(Tile tile) {
+		this.targetTile = tile;
+		
+		ArrayList<Point> validMoves = this.selectedTile.getPiece().getValidMoves();
+		Point targetTilePos = this.targetTile.getBoardPosition();
+		
+		if(isValidMove(validMoves, targetTilePos) && validTheoreticalMove(this.selectedTile, this.targetTile)) {
+			if(hasEnemyPiece()) {
+				Piece targetPiece = this.targetTile.movePieceFromTile();
+				removePieceFromBoard(targetPiece);
+			}
+			
+			movePiece();
+			
+			gameboard.repaint();
+			currentPlayer = currentPlayer == ChessColor.WHITE ? ChessColor.BLACK : ChessColor.WHITE;	
+			
+			if(isInCheck(currentPlayer == ChessColor.WHITE ? blackPieces : whitePieces))
+				if(isCheckMate()) {
+					this.gameOver = true;
+					gameboard.repaint();					
+				}
+				else 
+					System.out.println("CHECK");
+		} 
+		else { System.out.println("INVALID MOVE TRY AGAIN!"); }
+	}
+	
 	
 	private boolean validTile(Tile tile) {
 		return currentPlayer == tile.getPiece().getColor() ? true : false;

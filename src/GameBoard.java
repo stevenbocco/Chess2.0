@@ -1,7 +1,10 @@
+import java.awt.BasicStroke;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -23,18 +26,27 @@ public class GameBoard extends Canvas implements MouseListener {
 	
 	@Override
 	public void paint(Graphics g) {
-		System.out.println("paint function");
 		for(int i = 0; i < 8; i++) {
 			for(int j = 0; j < 8; j++) {
 				board[i][j].paint(g);
 			}
 		}
+		
+		if(game.isGameOver()) 
+			drawGameOver(g);		
 	}
 	
 	@Override
 	public void update(Graphics g) {
-		super.update(g);
-		System.out.println("update function");	
+		super.update(g);	
+	}
+	
+	public Tile[][] getBoard(){
+		return this.board;
+	}
+	
+	public Tile getTile(int i, int j) {
+		return board[i][j];
 	}
 	
 	@Override
@@ -46,10 +58,6 @@ public class GameBoard extends Canvas implements MouseListener {
 		game.handleClick(tile);
 	}
 	
-	public Tile[][] getBoard(){
-		return this.board;
-	}
-
 	@Override
 	public void mouseEntered(MouseEvent e) {}
 
@@ -87,7 +95,15 @@ public class GameBoard extends Canvas implements MouseListener {
 		return board[i][j];
 	}
 	
-	public Tile getTile(int i, int j) {
-		return board[i][j];
+	private void drawGameOver(Graphics g) {
+		ChessColor winner = game.getWinner();
+		
+		g.setFont(new Font("Arial", Font.BOLD, 100));
+		g.setColor(new Color(255, 255, 255));
+		g.drawString("CHECKMATE", 85, 425);	
+		
+		g.setFont(new Font("Arial", Font.BOLD, 75));
+		g.drawString(winner.toString() + " WINS!", 150, 500);
+		
 	}
 }
