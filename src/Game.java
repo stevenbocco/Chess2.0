@@ -15,8 +15,6 @@ public class Game extends JFrame {
 	private Tile selectedTile = null;
 	private Tile targetTile = null;
 	
-	private Tile[][] theoreticalBoard;
-	
 	private ChessColor currentPlayer = ChessColor.WHITE;
 	
 	public Game() {
@@ -52,7 +50,7 @@ public class Game extends JFrame {
 		else if(this.selectedTile != null && !tile.equals(selectedTile)) {
 			this.targetTile = tile;
 			
-			if(isValidMove(this.selectedTile.getPiece().getValidMoves(), this.targetTile.getBoardPosition()) && validTheoreticalMove()) {
+			if(isValidMove(this.selectedTile.getPiece().getValidMoves(), this.targetTile.getBoardPosition()) && validTheoreticalMove(this.selectedTile, this.targetTile)) {
 				if(hasEnemyPiece()) {
 					Piece targetPiece = this.targetTile.movePieceFromTile();
 					removePieceFromBoard(targetPiece);
@@ -62,6 +60,12 @@ public class Game extends JFrame {
 				
 				gameboard.repaint();
 				currentPlayer = currentPlayer == ChessColor.WHITE ? ChessColor.BLACK : ChessColor.WHITE;	
+				
+				if(isInCheck(currentPlayer == ChessColor.WHITE ? blackPieces : whitePieces))
+					if(isCheckMate()) 
+						System.out.println("CHECKMATE");											
+					else 
+						System.out.println("CHECK");
 			} 
 			else { System.out.println("INVALID MOVE TRY AGAIN!"); }
 		}
@@ -88,38 +92,53 @@ public class Game extends JFrame {
 		return false;
 	}
 	
-	private boolean validTheoreticalMove() {
+	private boolean validTheoreticalMove(Tile originalTile, Tile targetTile) {
 		
 		ArrayList<Piece> temp = new ArrayList<Piece>();
 		for(Piece p : currentPlayer == ChessColor.WHITE ? blackPieces : whitePieces) {
 			temp.add(p);
 		}
 		
-		Piece origSelectedPiece = this.selectedTile.movePieceFromTile();
+		Piece originalPiece = originalTile.movePieceFromTile();
 		Piece origTargetPiece = null;
-		if(this.targetTile.hasPiece()) {
-			origTargetPiece = this.targetTile.movePieceFromTile();
+		
+		if(targetTile.hasPiece()) {
+			origTargetPiece = targetTile.movePieceFromTile();
 			temp.remove(origTargetPiece);
 		}
 		
-		
-		
-		
-		origSelectedPiece.updatePosition(this.targetTile.getPosition().x / 100, this.targetTile.getPosition().y / 100);
-		
-		this.targetTile.addPieceToTile(origSelectedPiece);
-		
+		originalPiece.updatePosition(targetTile.getPosition().x / 100, targetTile.getPosition().y / 100);
+		targetTile.addPieceToTile(originalPiece);
 		
 		boolean inCheck = isInCheck(temp);
 		
-		origSelectedPiece.updatePosition(this.selectedTile.getPosition().x / 100, this.selectedTile.getPosition().y / 100);
-		this.targetTile.removePieceFromTile();
-		this.selectedTile.addPieceToTile(origSelectedPiece);
-		this.targetTile.addPieceToTile(origTargetPiece);
+		originalPiece.updatePosition(originalTile.getPosition().x / 100, originalTile.getPosition().y / 100);
+		targetTile.removePieceFromTile();
+		originalTile.addPieceToTile(originalPiece);
+		targetTile.addPieceToTile(origTargetPiece);
 		
 		return !inCheck;
 		
 	}
+	
+	private boolean isCheckMate() {
+		Tile[][] board = gameboard.getBoard();
+		
+		for(Piece p : currentPlayer == ChessColor.WHITE ? whitePieces : blackPieces) {
+			
+			Tile originalPieceTile = board[p.getPointPosition().x][p.getPointPosition().y]; 
+			
+			p.setValidMoves(board);
+			
+			for(Point pointMove : p.getValidMoves()) {
+				Tile targetTile = board[pointMove.x][pointMove.y];
+				if(validTheoreticalMove(originalPieceTile, targetTile))
+					return false;
+			}
+		}
+		return true;
+	}
+	
 	
 	private void movePiece() {
 		Piece piece = this.selectedTile.movePieceFromTile();

@@ -36,6 +36,10 @@ public abstract class Piece extends Component {
 		return validMoves;
 	}
 	
+	public Point getPointPosition() {
+		return this.position;
+	}
+	
 	protected void checkMoveBounds() {
 		ArrayList<Point> temp = new ArrayList<Point>();
 		
