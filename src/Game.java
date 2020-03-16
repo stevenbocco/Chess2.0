@@ -61,6 +61,10 @@ public class Game extends JFrame {
 		if(validTile(tile)) {
 			this.selectedTile = tile;
 			this.selectedTile.getPiece().setValidMoves(gameboard.getBoard());
+			this.selectedTile.toggleHighlighted();
+			toggleTiles(this.selectedTile.getPiece().getValidMoves());
+			
+			gameboard.repaint();
 			
 			System.out.println("You selected " + this.selectedTile.getTileCode());				
 		}
@@ -68,7 +72,10 @@ public class Game extends JFrame {
 	}
 	
 	private void unselectPiece() {
+		this.selectedTile.toggleHighlighted();
+		toggleTiles(this.selectedTile.getPiece().getValidMoves());
 		this.selectedTile = null;
+		gameboard.repaint();
 		System.out.println("You unselected the tile");
 	}
 	
@@ -79,6 +86,9 @@ public class Game extends JFrame {
 		Point targetTilePos = this.targetTile.getBoardPosition();
 		
 		if(isValidMove(validMoves, targetTilePos) && validTheoreticalMove(this.selectedTile, this.targetTile)) {
+			this.selectedTile.toggleHighlighted();
+			toggleTiles(this.selectedTile.getPiece().getValidMoves());
+			
 			if(hasEnemyPiece()) {
 				Piece targetPiece = this.targetTile.movePieceFromTile();
 				removePieceFromBoard(targetPiece);
@@ -166,6 +176,14 @@ public class Game extends JFrame {
 		}
 		return true;
 	}
+	
+	
+	private void toggleTiles(ArrayList<Point> points) {
+		for(Point p : points) {
+			gameboard.getTile(p.x, p.y).toggleHighlighted();
+		}
+	}
+	
 	
 	private void movePiece() {
 		Piece piece = this.selectedTile.movePieceFromTile();

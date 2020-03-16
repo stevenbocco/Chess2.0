@@ -6,6 +6,9 @@ import javax.imageio.ImageIO;
 public class TextureLoader {
 	private static BufferedImage tileDark = null;
 	private static BufferedImage tileLight = null;
+	
+	private static BufferedImage tileHighlight = null;
+	
 	private static BufferedImage pawnBlack = null;
 	private static BufferedImage pawnWhite = null;
 	private static BufferedImage rookBlack = null;
@@ -23,6 +26,7 @@ public class TextureLoader {
 		try {
 			tileDark = ImageIO.read(new File("resources/ChessTileDark.png")); 
 			tileLight = ImageIO.read(new File("resources/ChessTileLight.png"));
+			tileHighlight = ImageIO.read(new File("resources/ChessTileHighlight.png"));
 			pawnBlack = ImageIO.read(new File("resources/PawnBlack.png"));
 			pawnWhite = ImageIO.read(new File("resources/PawnWhite.png"));
 			rookBlack = ImageIO.read(new File("resources/RookBlack.png"));
@@ -44,6 +48,10 @@ public class TextureLoader {
 	
 	public static BufferedImage getLightTile() {
 		return tileLight;
+	}
+	
+	public static BufferedImage getHighlightTile() {
+		return tileHighlight;
 	}
 	
 	public static BufferedImage getPawnBlack() {
