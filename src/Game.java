@@ -30,6 +30,7 @@ public class Game extends JFrame {
 		this.getContentPane().add(gameboard);
 		initializePieces();
 		
+		this.setResizable(false);
 		this.pack();
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
