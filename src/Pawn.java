@@ -11,8 +11,6 @@ public class Pawn extends Piece {
 		
 	}
 
-	
-
 	@Override
 	public void setValidMoves(Tile[][] gameboard) {
 		int checkedColor = checkColor();

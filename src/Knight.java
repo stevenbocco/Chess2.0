@@ -1,16 +1,12 @@
 import java.awt.Point;
-import java.util.ArrayList;
 
 public class Knight extends Piece {
 
 	public Knight(ChessColor color, int x, int y) {
 		super(color, x, y);
 
-
 		this.pieceImage = color == ChessColor.WHITE ? TextureLoader.getKnightWhite() : TextureLoader.getKnightBlack();
 	}
-
-	
 
 	@Override
 	public void setValidMoves(Tile[][] gameboard) {
@@ -50,5 +46,4 @@ public class Knight extends Piece {
 		catch (ArrayIndexOutOfBoundsException e) {}
 		catch (NullPointerException e) {}
 	}
-
 }

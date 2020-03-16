@@ -1,4 +1,3 @@
-import java.awt.Point;
 
 public class Rook extends Piece {
 
@@ -9,8 +8,6 @@ public class Rook extends Piece {
 		
 		this.pieceImage = color == ChessColor.WHITE ? TextureLoader.getRookWhite() : TextureLoader.getRookBlack();
 	}
-
-	
 
 	@Override
 	public void setValidMoves(Tile[][] gameboard) {

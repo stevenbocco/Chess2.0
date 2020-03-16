@@ -1,6 +1,5 @@
 import java.awt.Point;
 import java.util.ArrayList;
-
 import javax.swing.JFrame;
 
 public class Game extends JFrame {
@@ -119,7 +118,6 @@ public class Game extends JFrame {
 				}
 			}
 		}
-		
 		return false;
 	}
 	
@@ -149,7 +147,6 @@ public class Game extends JFrame {
 		targetTile.addPieceToTile(origTargetPiece);
 		
 		return !inCheck;
-		
 	}
 	
 	private boolean isCheckMate() {
@@ -169,7 +166,6 @@ public class Game extends JFrame {
 		}
 		return true;
 	}
-	
 	
 	private void movePiece() {
 		Piece piece = this.selectedTile.movePieceFromTile();

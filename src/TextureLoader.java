@@ -94,21 +94,3 @@ public class TextureLoader {
 		return kingWhite;
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
