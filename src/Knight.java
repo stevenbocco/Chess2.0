@@ -33,6 +33,7 @@ public class Knight extends Piece {
 		
 	}
 	
+	//Sets the movement of the knight
 	private void knightMovement(Tile[][] gameboard, int x, int y) {
 		try {
 			if(gameboard[this.position.x + x][this.position.y + y].hasPiece()) {

@@ -35,6 +35,7 @@ public class Game extends JFrame {
 		this.setVisible(true);
 	}
 	
+	//Handles all events that happens when you click on a piece and/or tile
 	public void handleClick(Tile tile) {
 		if(!gameOver) {
 			if(this.selectedTile == null && tile.hasPiece()) {
@@ -131,6 +132,7 @@ public class Game extends JFrame {
 		return false;
 	}
 	
+	//Checks if the move is valid before you move a piece, i.e. you can't move a piece so that your own king is in check.
 	private boolean validTheoreticalMove(Tile originalTile, Tile targetTile) {
 		
 		ArrayList<Piece> temp = new ArrayList<Piece>();
@@ -159,6 +161,7 @@ public class Game extends JFrame {
 		return !inCheck;
 	}
 	
+	//Checks if there is a valid move to get out of check, if there is not then it is checkmate.
 	private boolean isCheckMate() {
 		Tile[][] board = gameboard.getBoard();
 		
@@ -203,6 +206,7 @@ public class Game extends JFrame {
 		}
 	}
 	
+	//Checks if the move you are trying to make is in the valid moves list of the piece
 	private boolean isValidMove(ArrayList<Point> validMoves, Point targetPos) {
 		for(int i = 0; i < validMoves.size(); i++) {
 			if(validMoves.get(i).equals(targetPos)) {

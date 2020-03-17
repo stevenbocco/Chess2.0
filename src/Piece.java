@@ -40,6 +40,7 @@ public abstract class Piece extends Component {
 		return this.position;
 	}
 	
+	//Removes all 'valid' moves that are outside of the board
 	protected void checkMoveBounds() {
 		ArrayList<Point> temp = new ArrayList<Point>();
 		
@@ -51,6 +52,7 @@ public abstract class Piece extends Component {
 		this.validMoves = temp;
 	}
 	
+	//Sets all valid moves for a piece with an x- and y-vector, and the max amount of possible moves in a direction
 	protected void setMovement(Tile[][] gameboard, int x, int y, int maxMoves) {
 		for(int i = 1; i <= maxMoves; i++) {
 			try {
@@ -66,6 +68,7 @@ public abstract class Piece extends Component {
 		}
 	}
 	
+	//Polymorph function that each individual piece sets their own valid moves.
 	public abstract void setValidMoves(Tile[][] gameboard);
 
 }

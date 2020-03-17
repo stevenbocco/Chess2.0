@@ -17,6 +17,7 @@ public class Pawn extends Piece {
 		
 		this.validMoves.clear();
 		
+		//Checking if the Pawn has moved, if it has not moved then adds the 2 step move to the valid moves list
 		if(this.position.equals(this.originalPos)) {
 			try {
 				if(!gameboard[this.position.x][this.position.y + (2 * checkedColor)].hasPiece())
