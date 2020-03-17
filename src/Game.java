@@ -4,6 +4,8 @@ import javax.swing.JFrame;
 
 public class Game extends JFrame {
 	
+	private static Game gameInstance = null;
+	
 	private final int WINDOW_WIDTH = 800;
 	private final int WINDOW_HEIGHT = 800;
 	
@@ -18,7 +20,8 @@ public class Game extends JFrame {
 	
 	private ChessColor currentPlayer = ChessColor.WHITE;
 	
-	public Game() {
+	//Make the constructor private so that the class can't be instantiated multiple times, Singleton class
+	private Game() {
 		super("Chess Game");
 		TextureLoader.loadTextures();
 		whitePieces = new ArrayList<Piece>(16);
@@ -33,6 +36,14 @@ public class Game extends JFrame {
 		this.pack();
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
+	}
+	
+	//Returns a instance of Game and creates one if one doesn't exist
+	public static Game getInstace() {
+		if(gameInstance == null)
+			gameInstance = new Game();
+		
+		return gameInstance;
 	}
 	
 	//Handles all events that happens when you click on a piece and/or tile
