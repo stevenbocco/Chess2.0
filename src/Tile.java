@@ -8,23 +8,28 @@ public class Tile extends Component {
 	private Piece piece = null;
 	private BufferedImage tileImage = null;
 	private BufferedImage highlightedImage = null;
+	private BufferedImage highlightedImageRed = null;
 	private int x,y;
-	private String tileCode;
 	private boolean isHighlighted;
+	private boolean isHighlightedRed;
 	
 	public Tile(Boolean isWhite, int x, int y) {
 		super();
 		this.tileImage = isWhite ? TextureLoader.getLightTile() : TextureLoader.getDarkTile();
 		this.highlightedImage = TextureLoader.getHighlightTile();
+		this.highlightedImageRed = TextureLoader.getHighlightTileRed();
 		this.x = x;
 		this.y = y;
-		this.tileCode = ChessTileCode.getChessTileCode(x/100, y/100);
 		this.isHighlighted = false;
+		this.isHighlightedRed = false;
 	}
 	
 	@Override
 	public void paint(Graphics g) {
 		g.drawImage(tileImage, x, y, null);
+		
+		if(isHighlightedRed)
+			g.drawImage(highlightedImageRed, x, y, null);
 		
 		if(isHighlighted)
 			g.drawImage(highlightedImage, x, y, null);
@@ -65,11 +70,11 @@ public class Tile extends Component {
 		return new Point(x/100, y/100);
 	}
 	
-	public String getTileCode() {
-		return this.tileCode;
-	}
-	
 	public void toggleHighlighted() {
 		this.isHighlighted = !this.isHighlighted;
+	}
+	
+	public void toggleHighlightedRed() {
+		this.isHighlightedRed = !this.isHighlightedRed;
 	}
 }

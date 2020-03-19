@@ -18,6 +18,8 @@ public class Game extends JFrame {
 	private Tile selectedTile = null;
 	private Tile targetTile = null;
 	
+	private Tile kingInCheckTile = null;
+	
 	private ChessColor currentPlayer = ChessColor.WHITE;
 	
 	//Make the constructor private so that the class can't be instantiated multiple times, Singleton class
@@ -76,11 +78,8 @@ public class Game extends JFrame {
 			this.selectedTile.toggleHighlighted();
 			toggleTiles(showValidMoves(this.selectedTile));
 			
-			gameboard.repaint();
-			
-			System.out.println("You selected " + this.selectedTile.getTileCode());				
+			gameboard.repaint();				
 		}
-		else { System.out.println("You selected an invalid tile"); }
 	}
 	
 	private void unselectPiece() {
@@ -88,11 +87,14 @@ public class Game extends JFrame {
 		toggleTiles(showValidMoves(this.selectedTile));
 		this.selectedTile = null;
 		gameboard.repaint();
-		System.out.println("You unselected the tile");
 	}
 	
 	private void movePieceLogic(Tile tile) {
 		this.targetTile = tile;
+		if(this.kingInCheckTile != null) {
+			this.kingInCheckTile.toggleHighlightedRed();
+			this.kingInCheckTile = null;
+		}
 		
 		ArrayList<Point> validMoves = this.selectedTile.getPiece().getValidMoves();
 		Point targetTilePos = this.targetTile.getBoardPosition();
@@ -111,15 +113,24 @@ public class Game extends JFrame {
 			gameboard.repaint();
 			currentPlayer = currentPlayer == ChessColor.WHITE ? ChessColor.BLACK : ChessColor.WHITE;	
 			
-			if(isInCheck(currentPlayer == ChessColor.WHITE ? blackPieces : whitePieces))
+			if(isInCheck(currentPlayer == ChessColor.WHITE ? blackPieces : whitePieces)) {
+				toggleKingPiece(currentPlayer == ChessColor.WHITE ? whitePieces : blackPieces);
+				
 				if(isCheckMate()) {
 					this.gameOver = true;
-					gameboard.repaint();					
 				}
-				else 
-					System.out.println("CHECK");
+				gameboard.repaint();					
+			}
 		} 
-		else { System.out.println("INVALID MOVE TRY AGAIN!"); }
+	}
+	
+	private void toggleKingPiece(ArrayList<Piece> pieceList) {
+		for(Piece p : pieceList) {
+			if(p.getClass().getName().equals("King")) {
+				this.kingInCheckTile = gameboard.getBoard()[p.getPointPosition().x][p.getPointPosition().y];
+				gameboard.getBoard()[p.getPointPosition().x][p.getPointPosition().y].toggleHighlightedRed();
+			}
+		}
 	}
 	
 	

@@ -95,13 +95,18 @@ public class GameBoard extends Canvas implements MouseListener {
 	
 	private void drawGameOver(Graphics g) {
 		ChessColor winner = game.getWinner();
-		
-		g.setFont(new Font("Arial", Font.BOLD, 100));
-		g.setColor(new Color(255, 255, 255));
-		g.drawString("CHECKMATE", 85, 425);	
-		
-		g.setFont(new Font("Arial", Font.BOLD, 75));
-		g.drawString(winner.toString() + " WINS!", 150, 500);
+        
+        g.setColor(new Color(25, 25, 25));
+        
+        if(winner == ChessColor.WHITE)
+            g.setColor(new Color(255, 255, 255));
+        
+        g.setFont(new Font("Arial", Font.BOLD, 100));
+        
+        g.drawString("CHECKMATE", 85, 425);    
+        
+        g.setFont(new Font("Arial", Font.BOLD, 75));
+        g.drawString(winner.toString() + " WINS!", 150, 500);
 		
 	}
 }
