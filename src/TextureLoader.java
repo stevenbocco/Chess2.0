@@ -1,6 +1,9 @@
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+
 import javax.imageio.ImageIO;
 
 public class TextureLoader {
@@ -24,22 +27,30 @@ public class TextureLoader {
 	
 	public static void loadTextures() {
 		try {
-			tileDark = ImageIO.read(new File("resources/ChessTileDark.png")); 
-			tileLight = ImageIO.read(new File("resources/ChessTileLight.png"));
-			tileHighlight = ImageIO.read(new File("resources/ChessTileHighlight.png"));
-			pawnBlack = ImageIO.read(new File("resources/PawnBlack.png"));
-			pawnWhite = ImageIO.read(new File("resources/PawnWhite.png"));
-			rookBlack = ImageIO.read(new File("resources/RookBlack.png"));
-			rookWhite = ImageIO.read(new File("resources/RookWhite.png"));
-			knightBlack = ImageIO.read(new File("resources/KnightBlack.png"));
-			knightWhite = ImageIO.read(new File("resources/KnightWhite.png"));
-			bishopBlack = ImageIO.read(new File("resources/BishopBlack.png"));
-			bishopWhite = ImageIO.read(new File("resources/BishopWhite.png"));
-			queenBlack = ImageIO.read(new File("resources/QueenBlack.png"));
-			queenWhite = ImageIO.read(new File("resources/QueenWhite.png"));
-			kingBlack = ImageIO.read(new File("resources/KingBlack.png"));
-			kingWhite = ImageIO.read(new File("resources/KingWhite.png"));
+			tileDark = ImageIO.read(load("ChessTileDark.png")); 
+			tileLight = ImageIO.read(load("ChessTileLight.png"));
+			tileHighlight = ImageIO.read(load("ChessTileHighlight.png"));
+			pawnBlack = ImageIO.read(load("PawnBlack.png"));
+			pawnWhite = ImageIO.read(load("PawnWhite.png"));
+			rookBlack = ImageIO.read(load("RookBlack.png"));
+			rookWhite = ImageIO.read(load("RookWhite.png"));
+			knightBlack = ImageIO.read(load("KnightBlack.png"));
+			knightWhite = ImageIO.read(load("KnightWhite.png"));
+			bishopBlack = ImageIO.read(load("BishopBlack.png"));
+			bishopWhite = ImageIO.read(load("BishopWhite.png"));
+			queenBlack = ImageIO.read(load("QueenBlack.png"));
+			queenWhite = ImageIO.read(load("QueenWhite.png"));
+			kingBlack = ImageIO.read(load("KingBlack.png"));
+			kingWhite = ImageIO.read(load("KingWhite.png"));
 		} catch (IOException e) { e.printStackTrace(); }
+	}
+	
+	private static InputStream load(String path) {
+		InputStream stream = TextureLoader.class.getResourceAsStream(path);
+		if(stream == null)
+			stream = TextureLoader.class.getResourceAsStream("/" + path);
+		
+		return stream;
 	}
 	
 	public static BufferedImage getDarkTile() {

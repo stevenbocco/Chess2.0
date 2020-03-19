@@ -74,7 +74,7 @@ public class Game extends JFrame {
 			this.selectedTile = tile;
 			this.selectedTile.getPiece().setValidMoves(gameboard.getBoard());
 			this.selectedTile.toggleHighlighted();
-			toggleTiles(this.selectedTile.getPiece().getValidMoves());
+			toggleTiles(showValidMoves(this.selectedTile));
 			
 			gameboard.repaint();
 			
@@ -85,7 +85,7 @@ public class Game extends JFrame {
 	
 	private void unselectPiece() {
 		this.selectedTile.toggleHighlighted();
-		toggleTiles(this.selectedTile.getPiece().getValidMoves());
+		toggleTiles(showValidMoves(this.selectedTile));
 		this.selectedTile = null;
 		gameboard.repaint();
 		System.out.println("You unselected the tile");
@@ -99,7 +99,7 @@ public class Game extends JFrame {
 		
 		if(isValidMove(validMoves, targetTilePos) && validTheoreticalMove(this.selectedTile, this.targetTile)) {
 			this.selectedTile.toggleHighlighted();
-			toggleTiles(this.selectedTile.getPiece().getValidMoves());
+			toggleTiles(showValidMoves(this.selectedTile));
 			
 			if(hasEnemyPiece()) {
 				Piece targetPiece = this.targetTile.movePieceFromTile();
@@ -191,6 +191,21 @@ public class Game extends JFrame {
 		return true;
 	}
 	
+	
+	private ArrayList<Point> showValidMoves(Tile selectedTile) {
+
+        ArrayList<Point> validMoves = new ArrayList<Point>();
+        
+        Piece p = selectedTile.getPiece();
+        
+        for(Point point : p.getValidMoves()) {
+            if(validTheoreticalMove(selectedTile, this.gameboard.getTile(point.x, point.y))) {
+                validMoves.add(point);
+            }
+        }
+        
+        return validMoves;
+    }
 	
 	private void toggleTiles(ArrayList<Point> points) {
 		for(Point p : points) {
