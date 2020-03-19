@@ -26,6 +26,7 @@ public class TextureLoader {
 	private static BufferedImage kingBlack = null;
 	private static BufferedImage kingWhite = null;
 	
+	//load all textures
 	public static void loadTextures() {
 		try {
 			tileDark = ImageIO.read(load("ChessTileDark.png")); 
@@ -47,6 +48,7 @@ public class TextureLoader {
 		} catch (IOException e) { e.printStackTrace(); }
 	}
 	
+	//get texture path
 	private static InputStream load(String path) {
 		InputStream stream = TextureLoader.class.getResourceAsStream(path);
 		if(stream == null)

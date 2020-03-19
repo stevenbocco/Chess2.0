@@ -22,7 +22,7 @@ public class Game extends JFrame {
 	
 	private ChessColor currentPlayer = ChessColor.WHITE;
 	
-	//Make the constructor private so that the class can't be instantiated multiple times, Singleton class
+	//Make the constructor private so that the class can't be instantiated, Singleton class
 	private Game() {
 		super("Chess Game");
 		TextureLoader.loadTextures();
@@ -40,8 +40,8 @@ public class Game extends JFrame {
 		this.setVisible(true);
 	}
 	
-	//Returns a instance of Game and creates one if one doesn't exist
-	public static Game getInstace() {
+	//Returns a instance of Game and creates one if one doesn't exist, Singleton class
+	public static Game getInstance() {
 		if(gameInstance == null)
 			gameInstance = new Game();
 		
@@ -71,6 +71,7 @@ public class Game extends JFrame {
 		return currentPlayer == ChessColor.WHITE ? ChessColor.BLACK : ChessColor.WHITE;
 	}
 	
+	//sets the pressed tile to the selected tile variable
 	private void selectPiece(Tile tile) {
 		if(validTile(tile)) {
 			this.selectedTile = tile;
@@ -82,6 +83,7 @@ public class Game extends JFrame {
 		}
 	}
 	
+	//Unselects the current selected tile
 	private void unselectPiece() {
 		this.selectedTile.toggleHighlighted();
 		toggleTiles(showValidMoves(this.selectedTile));
@@ -91,7 +93,7 @@ public class Game extends JFrame {
 	
 	private void movePieceLogic(Tile tile) {
 		this.targetTile = tile;
-		if(this.kingInCheckTile != null) {
+		if(this.kingInCheckTile != null) { //If one of the kings was put into check the previous round, make the highlighted tile unhighlighted
 			this.kingInCheckTile.toggleHighlightedRed();
 			this.kingInCheckTile = null;
 		}
@@ -99,11 +101,11 @@ public class Game extends JFrame {
 		ArrayList<Point> validMoves = this.selectedTile.getPiece().getValidMoves();
 		Point targetTilePos = this.targetTile.getBoardPosition();
 		
-		if(isValidMove(validMoves, targetTilePos) && validTheoreticalMove(this.selectedTile, this.targetTile)) {
-			this.selectedTile.toggleHighlighted();
+		if(isValidMove(validMoves, targetTilePos) && validTheoreticalMove(this.selectedTile, this.targetTile)) { //Checks if the tile selected is a valid position for the piece
+			this.selectedTile.toggleHighlighted();																// and checks so that the incoming move doesn't put yourself in check.
 			toggleTiles(showValidMoves(this.selectedTile));
 			
-			if(hasEnemyPiece()) {
+			if(hasEnemyPiece()) { //If the target tile has an opponent ontop of it, remove that piece
 				Piece targetPiece = this.targetTile.movePieceFromTile();
 				removePieceFromBoard(targetPiece);
 			}
@@ -113,10 +115,10 @@ public class Game extends JFrame {
 			gameboard.repaint();
 			currentPlayer = currentPlayer == ChessColor.WHITE ? ChessColor.BLACK : ChessColor.WHITE;	
 			
-			if(isInCheck(currentPlayer == ChessColor.WHITE ? blackPieces : whitePieces)) {
+			if(isInCheck(currentPlayer == ChessColor.WHITE ? blackPieces : whitePieces)) { // checks if you are in check
 				toggleKingPiece(currentPlayer == ChessColor.WHITE ? whitePieces : blackPieces);
 				
-				if(isCheckMate()) {
+				if(isCheckMate()) { // checks if you are in checkmate
 					this.gameOver = true;
 				}
 				gameboard.repaint();					
@@ -124,7 +126,7 @@ public class Game extends JFrame {
 		} 
 	}
 	
-	private void toggleKingPiece(ArrayList<Piece> pieceList) {
+	private void toggleKingPiece(ArrayList<Piece> pieceList) { //loops through and checks if our king is in check, and highlights his tile.
 		for(Piece p : pieceList) {
 			if(p.getClass().getName().equals("King")) {
 				this.kingInCheckTile = gameboard.getBoard()[p.getPointPosition().x][p.getPointPosition().y];
@@ -134,11 +136,11 @@ public class Game extends JFrame {
 	}
 	
 	
-	private boolean validTile(Tile tile) {
+	private boolean validTile(Tile tile) { // checks if you've selected a tile with a piece that has the same color as you.
 		return currentPlayer == tile.getPiece().getColor() ? true : false;
 	}
 	
-	private boolean isInCheck(ArrayList<Piece> pieceList) {
+	private boolean isInCheck(ArrayList<Piece> pieceList) { //Checks wether you are in check or not
 		
 		for(Piece p : pieceList) {
 			p.setValidMoves(gameboard.getBoard());
@@ -202,7 +204,7 @@ public class Game extends JFrame {
 		return true;
 	}
 	
-	
+	//Returns all valid moves that should be highlighted
 	private ArrayList<Point> showValidMoves(Tile selectedTile) {
 
         ArrayList<Point> validMoves = new ArrayList<Point>();
@@ -218,6 +220,7 @@ public class Game extends JFrame {
         return validMoves;
     }
 	
+	//Toggles the highlight image on all relevant tiles
 	private void toggleTiles(ArrayList<Point> points) {
 		for(Point p : points) {
 			gameboard.getTile(p.x, p.y).toggleHighlighted();
@@ -253,6 +256,7 @@ public class Game extends JFrame {
 		return false;
 	}
 	
+	//checks if the target tile has an enemy piece ontop of it
 	private boolean hasEnemyPiece() {
 		if(this.targetTile.hasPiece())
 			if(this.targetTile.getPiece().getColor() != currentPlayer) 

@@ -68,6 +68,7 @@ public class GameBoard extends Canvas implements MouseListener {
 	@Override
 	public void mouseReleased(MouseEvent e) {}
 	
+	//initializes the board and create tile object in every array position
 	private void initializeBoard() {
 		for(int i = 0; i < 8; i++) {
 			for(int j = 0; j < 8; j++) {

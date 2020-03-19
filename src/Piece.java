@@ -40,7 +40,7 @@ public abstract class Piece extends Component {
 		return this.position;
 	}
 	
-	//Removes all 'valid' moves that are outside of the board
+	//Removes all moves that are outside of the board
 	protected void checkMoveBounds() {
 		ArrayList<Point> temp = new ArrayList<Point>();
 		
